@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>milan</title>
+    <link rel="stylesheet" href="Hire Me.css">
+
+</head>
+
+
+<body>
+    <div class="registration-form">
+
+        <h1>Hire Me Now!!</h1>
+        <form name="submit-to-google-sheet">
+            <p>Company Name</p>
+            <input type="text" name="Company Name" placeholder="Company Name" required>
+            <p>Location</p>
+            <input type="text" name="Location" placeholder="Location" required>
+            <p>Email</p>
+            <input type="email" name="Email" placeholder="Email" required>
+            <p>Dipartment??</p>
+            <input type="text" name="Dipartment??" placeholder="Dipartment??" required>
+            <button type="submit">Send</button>
+
+        </form>
+        <span id="msg"></span>
+    </div>
+
+
+    <script>
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbzLQI2nyemWbNWabseXB7-7_0gyXupDeWwIh5FpP_MFjISha3GO-EkUjn11Fq7IAsyo/exec'
+        const form = document.forms['submit-to-google-sheet']
+        const msg = document.getElementById("msg")
+
+        form.addEventListener('submit', e => {
+            e.preventDefault()
+            fetch(scriptURL, {
+                    method: 'POST',
+                    body: new FormData(form)
+                })
+                .then(response => {
+                    msg.innerHTML = "Message sent successfully"
+                    setTimeout(function() {
+                        msg.innerHTML = ""
+
+                    }, 5000)
+                    form.reset()
+                })
+                .catch(error => console.error('Error!', error.message))
+        })
+    </script>
+
+</body>
+
+</html>
